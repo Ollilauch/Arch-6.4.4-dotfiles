@@ -1,0 +1,186 @@
+/*css for waybar (top)*/
+
+* {
+  border: none;
+/*  border-radius: 30; */
+  font-family: "JetbrainsMono Nerd Font";
+  font-size: 12px;
+  min-height: 0;
+}
+
+window#waybar {
+  background: rgba(46,52,64,1.0);
+  /*background: #2e3440;*/
+}
+
+window#waybar.hidden {
+  opacity: 0.2;
+}
+
+window#waybar.empty {
+  background: #2e3440;
+}
+
+#waybar.empty #window {
+  background: #2e3440;
+}
+
+#window {
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 5px;
+  transition: none;
+  /*background: #2e3440;*/
+  color: #d8dee9;
+}
+
+#mode {
+  margin-left: 12px;
+  padding-left: 15px;
+  padding-right: 20px;
+  border-radius: 5px;
+  transition: none;
+  /*background: #2e3440;*/
+}
+
+#workspaces {
+  margin-left: 60px;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 30px;
+  transition: none;
+  background: rgba(61,71,92,0.95);
+  /*background: #3d475c;*/
+}
+
+#workspaces button {
+  transition: none;
+  margin-right: 3px;
+  color: #4c566a;
+  background: transparent;
+  border-radius: 0px;
+}
+
+#workspaces button.occupied {
+  transition: none;
+  color: #a3be8c;
+  background: transparent;
+  font-size: 4px;
+}
+
+#workspaces button.focused {
+  color: #81a1c1;
+  border-bottom: 2px solid #81a1c1;
+  padding-right: 10px;
+}
+
+#workspaces button:hover {
+  transition: none;
+  box-shadow: inherit;
+  text-shadow: inherit;
+  color: #81a1c1;
+}
+
+.custom-spotify {
+    padding: 0 10px;
+    border-radius: 20px;
+    margin: 8px 50px;
+    background-color: #1DB954;
+    background: rgba(29, 185, 84, 0.8);
+    color: black;
+}
+
+#temperature {
+  margin-left: 12px;
+  /*margin-right: 12px;*/
+  border-radius: 5px;
+  transition: none;
+  padding: 0 10px;
+  color: #a3be8c;
+  /*background: #2e3440;*/
+}
+
+#pulseaudio /* volume */ {
+  margin-left: 12px;
+  border-radius: 5px;
+  transition: none;
+  padding: 0 10px;
+  color: #a3be8c;       
+  /*border-bottom: 2px solid #a3be8c;
+  border-radius: 0px;*/
+  /*background: #2e3440;*/
+}
+
+#battery {
+  margin-left: 12px;
+  border-radius: 5px;
+  transition: none;
+  padding: 10px 10px;
+  color: #a3be8c;
+  /*background: #2e3440;*/
+}
+
+#battery.critical:not(.charging) {
+  background-color: #d8dee9;
+  color: #2e3440;
+  animation-name: blink;
+  animation-duration: 0.5s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@keyframes blink {
+  to {
+    background-color: #bf616a;
+    color: #d8dee9;
+  }
+}
+
+#cpu {
+  margin-left: 12px;
+  border-radius: 5px;
+  transition: none;
+  padding: 10px 10px;
+  color: #88c0d0;
+  /*background: #2e3440;*/
+}
+
+#memory {
+  margin-left: 12px;
+  border-radius: 5px;
+  transition: none;
+  padding: 10px 10px;
+  color: #88c0d0;
+  /*background: #2e3440;*/
+}
+
+#clock {
+  margin-left: 12px;
+  margin-right: 12px;
+  border-radius: 5px;
+  transition: none;
+  padding: 10px 10px;
+  color: #a3be8c;
+  /*background: #2e3440;*/
+}
+
+#tray {
+  margin-right: 12px;
+  border-radius: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  color: #d8dee9;
+  /*background: #2e3440;*/
+}
+
+#network {
+  margin-left: 12px;
+  border-radius: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  color: #d8dee9;
+  /*background: #2e3440;*/
+}

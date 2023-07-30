@@ -1,0 +1,21 @@
+# SwayFx options
+
+# corner
+smart_corner_radius disable
+#12 (prev)
+corner_radius 0
+smart_borders enable
+
+# shadows
+shadows enable
+shadow_blur_radius 12
+shadow_color #303446
+
+# blur
+blur disable
+blur_radius 5
+blur_xray disable
+
+# dim window when unfocused
+# default_dim_inactive 0.1
+

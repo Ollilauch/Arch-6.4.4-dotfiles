@@ -1,0 +1,223 @@
+#-------------------Ollilauch-i3-Config-File-------------------------------
+
+set $mod Mod1
+set $term kitty
+
+#--------------------------EXECUTABLES-----------------------------------
+#exec_always --no-startup-id $HOME/.config/polybar/launch.sh & 
+exec "fluxgui"
+exec "ip link set wlp4s0 down"
+exec_always swaybg -i $HOME/Downloads/1630505.jpg -m center
+# Notifaction pop-up
+exec mako
+# Volume and Brightness pop-up
+exec "avizo-service"
+
+set $gnome-schema org.gnome.desktop.interface
+exec_always {
+    #gsettings set $gnome-schema gtk-theme 'Your theme'
+    #gsettings set $gnome-schema icon-theme 'Your icon theme'
+    gsettings set $gnome-schema cursor-theme 'Catppuccin-Mocha-Lavender'
+    gsettings set $gnome-schema font-name 'Hack-Nerd-Font-Mono'
+}
+#-------------------------------------------------------------------------
+
+#--------------------------INPUTS-----------------------------------------
+input type:keyboard xkb_layout "de"
+input type:touchpad {
+            natural_scroll enabled
+            scroll_factor 0.25
+            }
+#-------------------------------------------------------------------------
+
+#--------------------------FONTS------------------------------------------
+font pango:Hack Nerd Font Mono 10
+#-------------------------------------------------------------------------
+
+#---------------------------THEMES----------------------------------------
+# SwayFx options (replaces Picom)
+include ~/.config/sway/themes
+#-------------------------------------------------------------------------
+
+#-------------------------------BAR---------------------------------------
+# Status Bars (replaces Polybar)
+include ~/.config/sway/waybar
+#-------------------------------------------------------------------------
+
+#---------------------------WINDOWS---------------------------------------
+for_window [class="^.*"] border pixel 2px 
+gaps inner 10
+# hide_edge_borders vertical
+set $unfocused_border #000000
+set $focused_border #a35ab8
+client.focused "#a35ab8" "#a35ab8" "#a35ab8" 
+client.unfocused "#2e3440" "#2e3440" "#2e3440" 
+
+for_window [workspace=""] floating enable
+floating_minimum_size 300 x 200
+# floating_maximum_size 500 x 310
+#exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+#exec --no-startup-id nm-applet
+#--------------------------------------------------------------------------
+
+#----------------------AUDIO&BRIGHTNESS------------------------------------
+bindsym XF86AudioRaiseVolume exec volumectl -u up
+bindsym XF86AudioLowerVolume exec volumectl -u down 
+bindsym XF86AudioMute exec volumectl toggle-mute
+bindsym XF86AudioMicMute exec volumectl -m toggle-mute
+
+bindsym XF86MonBrightnessUp exec lightctl up
+bindsym XF86MonBrightnessDown exec lightctl down
+#---------------------------------------------------------------------------
+
+#-------------------------POWERSAVE----------------------------------------- 
+exec swayidle -w \
+        timeout 600 'swaymsg "output * dpms off"' \
+             resume 'swaymsg "output * dpms on"'
+#exec --no-startup-id xset s off
+#exec --no-startup-id xset --dpms
+#exec --no-startup-id xset s noblank
+#---------------------------------------------------------------------------
+
+#-------------------------BINDS---------------------------------------------
+floating_modifier $mod
+bindsym $mod+Return exec kitty
+bindsym $mod+Shift+q kill
+bindsym $mod+d exec "rofi -modi drun,run -show drun"
+bindsym $mod+f fullscreen toggle
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+space focus mode_toggle
+bindsym $mod+Shift+c reload
+bindsym Print exec scrot $HOME/Pictures/`date +%Y-%m-%d_%H:%M:%S`.png
+bindsym $mod+Shift+r restart
+bindsym $mod+r mode "resize"
+
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+
+# Windows Movement
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# Windows Split
+bindsym $mod+h split h
+bindsym $mod+v split v
+
+bindsym $mod+Shift+d	gaps inner all set 0; gaps outer all set 0
+bindsym $mod+Shift+t	gaps inner all set 30; gaps outer all set 20
+
+# Container Layout
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# Container Focus
+bindsym $mod+a focus parent
+#bindsym $mod+d focus child
+
+#move workspace
+bindsym $mod+m move workspace to output left
+
+# scroll through workspaces
+#bindsym $mod+button4 workspace next
+bindsym --whole-window $mod+button4 workspace prev_on_output
+bindsym --whole-window $mod+button5 workspace next_on_output
+
+#--------------------------------------------------------------------------------
+
+#----------------------------------WORKSPACES------------------------------------
+set $primary_screen eDP-1
+set $secondary_screen HDMI-0
+
+workspace 1 output $primary_screen
+workspace 2 output $primary_screen
+workspace 3 output $primary_screen
+workspace 4 output $primary_screen
+workspace 5 output $secondary_screen
+workspace 6 output $secondary_screen
+workspace 7 output $primary_screen
+workspace 8 output $secondary_screen
+workspace 9 output $primary_screen
+
+set $ws1 "1: Navg  "
+set $ws2 "2: Code  "
+set $ws3 "3: Edit  "
+set $ws4 "4: Game  "
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9: Spotify  "
+set $ws10 "10"
+
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+bindsym $mod+0 workspace number $ws10
+
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws10
+#------------------------------------------------------------------------------
+
+#---------------------------------------APPLICATIONS---------------------------
+for_window [class="Spotify"] move to workspace $ws9, floating enable, resize set height 800px, resize set width 1400px
+for_window [class="Dbeaver"] move to workspace $ws2
+for_window [class="Kate"] move to workspace $ws2
+for_window [class="Subl3"] move to workspace $ws3
+for_window [class="Steam"] move to workspace $ws4
+for_window [class="firefox"] move to workspace $ws1
+for_window [class="Olivia"] move to workspace $ws9
+# for_window [app_id="kitty"]
+for_window [app_id="galendae"] floating enable, sticky enable, move position cursor, move down 35
+for_window [title="nmtui"] floating enable, sticky enable, move position cursor, move down 35
+# Plasma compatibility improvements
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="task_dialog"] floating enable
+for_window [title="Desktop @ QRect.*"] kill; floating enable; border none
+for_window [class="yakuake"] floating enable
+for_window [class="systemsettings"] floating enable
+for_window [class="plasmashell"] floating enable;
+for_window [class="Plasma"] floating enable; border none
+for_window [title="plasma-desktop"] floating enable; border none
+for_window [title="win7"] floating enable; border none
+for_window [class="krunner"] floating enable; border none
+for_window [class="Kmix"] floating enable; border none
+for_window [class="Klipper"] floating enable; border none
+for_window [class="Plasmoidviewer"] floating enable; border none
+for_window [class="(?i).nextcloud."] floating disable
+for_window [class="plasmashell" window_type="notification"] border none, move right 700px, move down 450px
+no_focus [class="plasmashell" window_type="notification"]
+#------------------------------------------------------------------------------
+
+#---------------------------------------FUNCTIONS------------------------------
+mode "resize" {
+        bindsym Left resize shrink width 15 px or 15 ppt
+        bindsym Down resize grow height 15 px or 15 ppt
+        bindsym Up resize shrink height 15 px or 15 ppt
+        bindsym Right resize grow width 15 px or 15 ppt
+
+        # back to normal: Enter or Escape or $mod+r
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+r mode "default"
+}
+#------------------------------------------------------------------------------
