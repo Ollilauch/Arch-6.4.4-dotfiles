@@ -19,9 +19,14 @@
     "height": 35,
 
     "modules-left": [
+        "custom/launcher",
         "sway/workspaces",
         "sway/mode",
-        "custom/spotify"
+        //"custom/spotify",
+        "custom/playerctl#backward",
+        "custom/playerctl#play",
+        "custom/playerctl#forward",
+        "custom/playerlabel"
     ],
     "modules-center": [
         //"sway/window"
@@ -88,7 +93,8 @@
         "states": {
           "warning": 70,
           "critical": 90
-        }
+        },
+        "on-click": "kitty --title=htop_cpu htop -s PERCENT_CPU",
     },
 
     "custom/keyboard-layout": {
@@ -107,7 +113,8 @@
         "states": {
             "warning": 70,
             "critical": 90
-        }
+        },
+        "on-click": "kitty --title=htop_mem htop -s PERCENT_MEM",
     },
 
     "network": {
@@ -132,12 +139,12 @@
             "car": "", // Icon: car
             "default": ["", ""] // Icons: volume-down, volume-up
         },
-        "on-click": "kitty --title='Sound Mixer' --command='pulsemixer'",
+        "on-click": "easyeffects",
         "tooltip": true
     },
 
     "sway/mode": {
-        "format": "<span style=\"italic\">  {}</span>", // Icon: expand-arrows-alt
+        "format": "<span style=\"italic\">  {}", // Icon: expand-arrows-alt
         "tooltip": false
     },
 
@@ -174,7 +181,7 @@
 		"on": " " // Icon shows only when "consume" is on
 	},
 	"random-icons": {
-		"off": "<span color=\"#f53c3c\"></span> ", // Icon grayed out when "random" is off
+		"off": "<span color=\"#f53c3c\"> ", // Icon grayed out when "random" is off
 		"on": " "
 	},
 	"repeat-icons": {
@@ -192,17 +199,61 @@
     },
 
     "custom/spotify": {
-    "exec": "/usr/bin/python3 $HOME/.config/waybar/modules/mediaplayer.py --player spotify 2> /dev/null",
-    "format": "{}  ",
-    "max-length": 30,
+        "exec": "/usr/bin/python3 $HOME/.config/waybar/modules/mediaplayer.py --player spotify 2> /dev/null",
+        "format": "{}  ",
+        "max-length": 30,
+        "return-type": "json",
+        /*"state-icons:" {
+            "paused": " ",
+            "playing": " "
+        },*/
+        "on-click": "playerctl play-pause",
+        "on-scroll-up": "playerctl next",
+        "on-scroll-down": "playerctl previous",
+    },
+
+    "custom/playerctl#backward": {
+    "format": "{icon}",
     "return-type": "json",
-    /*"state-icons:" {
-        "paused": " ",
-        "playing": " "
-    },*/
-    "on-click": "playerctl play-pause",
-    "on-scroll-up": "playerctl next",
-    "on-scroll-down": "playerctl previous"
+    "max-length": 64,
+    "exec": "playerctl -p spotify metadata --format '{\"text\": \"{{artist}} - {{markup_escape(title)}}\", \"tooltip\": \"{{playerName}} : {{markup_escape(title)}}\", \"alt\": \"{{status}}\", \"class\": \"{{status}}\"}' -F",
+    "on-click": "playerctl previous",
+    "format-icons": {
+            "Playing": "<span>󰙣 </span>",
+            "Paused": "<span>󰙣 </span>"
+        },
+    },
+
+    "custom/playerctl#play": {
+        "format": "{icon}",
+        "return-type": "json",
+        "max-length": 40,
+        "exec": "playerctl -p spotify metadata --format '{\"text\": \"{{artist}} - {{markup_escape(title)}}\", \"tooltip\": \"{{playerName}} : {{markup_escape(title)}}\", \"alt\": \"{{status}}\", \"class\": \"{{status}}\"}' -F",
+        "on-click": "playerctl -i firefox play-pause",
+        "format-icons": {
+            "Playing": "<span>󰏥 </span>",
+            "Paused": "<span> </span>"
+        }
+    },
+
+    "custom/playerctl#forward": {
+        "format": "{icon}",
+        "return-type": "json",
+        "max-length": 40,
+        "exec": "playerctl -p spotify metadata --format '{\"text\": \"{{artist}} - {{markup_escape(title)}}\", \"tooltip\": \"{{playerName}} : {{markup_escape(title)}}\", \"alt\": \"{{status}}\", \"class\": \"{{status}}\"}' -F",
+        "on-click": "playerctl next",
+        "format-icons": {
+            "Playing": "<span>󰙡 </span>",
+            "Paused": "<span>󰙡 </span>"
+        },
+    },
+
+    "custom/playerlabel": {
+        "format": "󰎈 {} 󰎈",
+        "return-type": "json",
+        "max-length": 40,
+        "exec": "playerctl -p spotify metadata --format '{\"text\": \"{{artist}} - {{markup_escape(title)}}\", \"tooltip\": \"{{playerName}} : {{markup_escape(title)}}\", \"alt\": \"{{status}}\", \"class\": \"{{status}}\"}' -F",
+        "on-click": "",
     },
 
     "temperature": {
@@ -222,9 +273,14 @@
     "tray": {
         "icon-size": 21,
         "spacing": 10
-    }
+    },
 
-
+    "custom/launcher": {
+        "format": "󰣇",
+        "on-click": "rofi -modi drun, run -show drun",
+        // "on-click-right": "bash $HOME/.config/rofi/run.sh", 
+        "tooltip": "false",
+    },
 
 }
 

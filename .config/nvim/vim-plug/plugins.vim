@@ -8,4 +8,7 @@ Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
 Plug 'windwp/nvim-autopairs'
 Plug 'lervag/vimtex'
 Plug 'nvim-orgmode/orgmode'
+Plug 'michaelb/sniprun', {'do': 'sh install.sh'}
+Plug 'nvim-neorg/neorg' | Plug 'nvim-lua/plenary.nvim'
+Plug 'SirVer/ultisnips'
 call plug#end()

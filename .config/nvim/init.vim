@@ -43,6 +43,27 @@ lua << EOF
          org_hilight_latex_and_related = "entities",
          emacs_config = { executable_path = 'emacs', config_path='$HOME/.config/emacs/init.el' }
     })
+    require'sniprun'.setup({
+    interpreter_options = {
+        C_original = {
+             compiler = "gcc"
+            }
+        }
+    })
+    require('neorg').setup {
+        load = {
+            ["core.defaults"] = {}, -- Loads default behaviour
+            ["core.concealer"] = {}, -- Adds pretty icons to your documents
+            ["core.dirman"] = { -- Manages Neorg workspaces
+                config = {
+                    workspaces = {
+                        notes = "~/notes/norg",
+                    },
+                    default_workspace = "notes",
+                },
+            },
+        },
+    }
 EOF
 
 " LATEX config
@@ -72,3 +93,10 @@ EOF
 endfunction
 
 command! InstallPackages call InstallPackages()
+
+" Snippets
+let g:UltiSnipsExpandTrigger = '<tab>'
+let g:UltiSnipsJumpForwardTrigger = '<tab>'
+let g:UltiSnipsJumpBackwardTrigger = '<s-tab'>
+" `my_snippets` is the directory we created before
+let g:UltiSnipsSnippetDirectories=["UltiSnips", "snippets"]

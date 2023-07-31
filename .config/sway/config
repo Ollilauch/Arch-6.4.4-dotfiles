@@ -7,7 +7,7 @@ set $term kitty
 #exec_always --no-startup-id $HOME/.config/polybar/launch.sh & 
 exec "fluxgui"
 exec "ip link set wlp4s0 down"
-exec_always swaybg -i $HOME/Downloads/1630505.jpg -m center
+exec swaybg -i $HOME/Downloads/1630505.jpg -m center
 # Notifaction pop-up
 exec mako
 # Volume and Brightness pop-up
@@ -50,7 +50,7 @@ gaps inner 10
 # hide_edge_borders vertical
 set $unfocused_border #000000
 set $focused_border #a35ab8
-client.focused "#a35ab8" "#a35ab8" "#a35ab8" 
+client.focused "#B443F3" "#B443F3" "#a35ab8" 
 client.unfocused "#2e3440" "#2e3440" "#2e3440" 
 
 for_window [workspace=""] floating enable
@@ -189,6 +189,8 @@ for_window [class="Olivia"] move to workspace $ws9
 # for_window [app_id="kitty"]
 for_window [app_id="galendae"] floating enable, sticky enable, move position cursor, move down 35
 for_window [title="nmtui"] floating enable, sticky enable, move position cursor, move down 35
+for_window [app_id="easyeffects"] floating enable, sticky enable, move position cursor, move down 35
+for_window [title="htop_mem|cpu"] floating enable, sticky enable, move position cursor, move down 35, exec zsh $HOME/scripts/kill_unfocused.sh
 # Plasma compatibility improvements
 for_window [window_role="pop-up"] floating enable
 for_window [window_role="task_dialog"] floating enable
