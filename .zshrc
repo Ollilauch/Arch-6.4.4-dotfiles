@@ -18,3 +18,18 @@ bindkey -v
 
 # change default editor
 export EDITOR=nvim
+
+# aliases
+alias ll="ls -la --color=auto"
+
+# change default terminal
+export TERMINAL=st
+
+# detach zathura from terminal
+alias zathura='zathura --fork'
+
+# add scripts to PATH
+export PATH="$PATH:$HOME/scripts:/usr/avr/include"
+
+export JAVA_HOME=/opt/jdk-21.0.1+12
+export PATH=$PATH:$JAVA_HOME/bin
