@@ -1,19 +1,17 @@
 #-------------------Nojipiz-i3-Config-File-------------------------------
 
-set $mod Mod4
+set $mod Mod1
 set $term kitty
 
 #--------------------------EXECUTABLES-----------------------------------
-# Executables set in ~/.xsession
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh & 
-
-# exec "fluxgui"
-# exec "setxkbmap latam"
-# exec "ip link set wlp4s0 down"
-# exec_always feh --bg-fill /home/nojipiz/Images/Wallpapers/nord.jpg
-# exec "xmodmap ~/.config/xmodmap/custom_config"
-# exec_always feh --bg-scale ~/Downloads/wp6320952-blue-and-purple-anime-wallpapers.jpg
-# exec_always --no-startup-id picom --config .config/picom.conf -bc
+exec "fluxgui"
+exec "setxkbmap latam"
+exec "ip link set wlp4s0 down"
+exec_always feh --bg-fill /home/nojipiz/Images/Wallpapers/nord.jpg
+exec "xmodmap ~/.config/xmodmap/custom_config"
+exec_always feh --bg-scale ~/Downloads/wp6320952-blue-and-purple-anime-wallpapers.jpg
+exec_always --no-startup-id picom --config .config/picom.conf -bc
 #-------------------------------------------------------------------------
 
 #--------------------------FONTS------------------------------------------
@@ -21,10 +19,8 @@ font pango:Hack Nerd Font Mono 10
 #-------------------------------------------------------------------------
 
 #---------------------------WINDOWS---------------------------------------
-for_window [class="^.*"] border pixel 1
-gaps inner 13
-# space for polybar
-gaps top 25 
+for_window [class="^.*"] border pixel 0Zc
+gaps inner 10
 hide_edge_borders vertical
 set $unfocused_border #000000
 set $focused_border #000000
@@ -32,8 +28,8 @@ set $focused_border #000000
 for_window [workspace=""] floating enable
 floating_minimum_size 300 x 200
 #floating_maximum_size 500 x 310
-# exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
-# exec --no-startup-id nm-applet
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+exec --no-startup-id nm-applet
 #--------------------------------------------------------------------------
 
 #----------------------AUDIO&BRIGHTNESS------------------------------------
@@ -43,24 +39,21 @@ bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
 
-# use brightnessctl to adjust screen brightness
-bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set +5% # increase screen brightness
-bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 5%- # decrease screen brightness
+bindsym XF86MonBrightnessUp exec sudo -S bash /home/nojipiz/.config/i3/scripts/brightnessUp.sh
+bindsym XF86MonBrightnessDown exec 
 #---------------------------------------------------------------------------
 
 #-------------------------POWERSAVE----------------------------------------- 
-# exec --no-startup-id xset s off
-# exec --no-startup-id xset --dpms
-# exec --no-startup-id xset s noblank
+exec --no-startup-id xset s off
+exec --no-startup-id xset --dpms
+exec --no-startup-id xset s noblank
 
 #---------------------------------------------------------------------------
 
 #-------------------------BINDS---------------------------------------------
 floating_modifier $mod
-bindsym $mod+Shift+Return exec kitty
-bindsym $mod+Return exec kitty --class "kitty float"
+bindsym $mod+Return exec kitty
 bindsym $mod+Shift+q kill
-bindsym $mod+d exec --no-startup-id "dmenu_run -nf '#BBBBBB' -nb '#222222' -sb '#005577' -sf '#EEEEEE' -fn 'monospace-10'"
 bindsym $mod+z exec rofi -show run
 bindsym $mod+x exec rofi-surfraw
 bindsym $mod+f fullscreen toggle
@@ -165,23 +158,24 @@ for_window [class="Subl3"] move to workspace $ws3
 for_window [class="Steam"] move to workspace $ws4
 for_window [class="Firefox"] move to workspace $ws1
 for_window [class="Olivia"] move to workspace $ws9
-for_window [class="kitty float"] floating enable
+for_window [class="kitty"] floating enable
 # Plasma compatibility improvements
-# for_window [window_role="pop-up"] floating enable
-# for_window [window_role="task_dialog"] floating enable
-# for_window [title="Desktop @ QRect.*"] kill; floating enable; border none
-# for_window [class="yakuake"] floating enable
-# for_window [class="systemsettings"] floating enable
-# for_window [class="plasmashell"] floating enable;
-# for_window [class="Plasma"] floating enable; border none
-# for_window [title="plasma-desktop"] floating enable; border none
-# for_window [title="win7"] floating enable; border none
-# for_window [class="krunner"] floating enable; border none
-# for_window [class="Kmix"] floating enable; border none
-# for_window [class="Klipper"] floating enable; border none
-# for_window [class="Plasmoidviewer"] floating enable; border none
-# for_window [class="plasmashell" window_type="notification"] border none, move right 700px, move down 450px
-# no_focus [class="plasmashell" window_type="notification"
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="task_dialog"] floating enable
+for_window [title="Desktop @ QRect.*"] kill; floating enable; border none
+for_window [class="yakuake"] floating enable
+for_window [class="systemsettings"] floating enable
+for_window [class="plasmashell"] floating enable;
+for_window [class="Plasma"] floating enable; border none
+for_window [title="plasma-desktop"] floating enable; border none
+for_window [title="win7"] floating enable; border none
+for_window [class="krunner"] floating enable; border none
+for_window [class="Kmix"] floating enable; border none
+for_window [class="Klipper"] floating enable; border none
+for_window [class="Plasmoidviewer"] floating enable; border none
+for_window [class="(?i)*nextcloud*"] floating disable
+for_window [class="plasmashell" window_type="notification"] border none, move right 700px, move down 450px
+no_focus [class="plasmashell" window_type="notification"
 #------------------------------------------------------------------------------
 
 #---------------------------------------FUNCTIONS------------------------------
@@ -198,18 +192,6 @@ mode "resize" {
 }
 #------------------------------------------------------------------------------
 #------------------------------------BAR---------------------------------------
-# bar {
-#   position top
-#   colors {
-#     background #000000
-#     statusline #FFFFFF
-#     separator  #666666
-# 
-#     focused_workspace  #83CAFA #51A2DA #FFFFFF
-#     active_workspace   #3C6EB4 #294172 #FFFFFF
-#     inactive_workspace #8C8C8C #4C4C4C #888888
-#     urgent_workspace   #EC69A0 #DB3279 #FFFFFF
-#     binding_mode       #b691d3 #A07CBC #FFFFFF
-#   }
-#   status_command i3status
-# }
+#bar {
+#    
+#}
