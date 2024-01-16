@@ -1,0 +1,8 @@
+Hack Nerd Font Mono
+Fira Code Medium
+FontAwesome
+Material Design Icons
+siji
+unifont
+FiraCode Nerd Font
+Material Icons
