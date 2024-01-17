@@ -1,0 +1,10 @@
+# Run user xsession shell script
+script="$HOME/.xsession"
+if [ -x "$script" -a ! -d "$script" ]; then
+    echo "Loading xsession script $script"
+    . "$script"
+fi
+
+echo "X session wrapper complete, running session $@"
+
+exec $@
