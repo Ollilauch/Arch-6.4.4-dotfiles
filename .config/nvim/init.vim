@@ -144,9 +144,9 @@ lua << EOF
         settings = {
         ltex = {
               -- language = "en"
-              language = "de-DE"
+              language = "de-DE",
             }
-          },
+        },
         root_dir = function(fname)   
             return vim.loop.cwd()
         end,

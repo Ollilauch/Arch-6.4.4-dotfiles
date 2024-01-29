@@ -27,4 +27,6 @@ Plug 'kevinhwang91/rnvimr'
 Plug 'abeleinin/papyrus'
 " show function signature
 Plug 'ray-x/lsp_signature.nvim'
+" image support
+Plug '3rd/image.nvim'
 call plug#end()
